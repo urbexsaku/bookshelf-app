@@ -13,15 +13,15 @@ class ReviewLikeSeeder extends Seeder
     public function run(): void
     {
         $likes = [
-            1  => [2, 3],
-            2  => [1],
-            3  => [1, 4, 5],
-            4  => [1, 2],
-            5  => [3],
-            6  => [4, 5],
-            7  => [],
-            8  => [1, 2],
-            9  => [3],
+            1 => [2, 3],
+            2 => [1],
+            3 => [1, 4, 5],
+            4 => [1, 2],
+            5 => [3],
+            6 => [4, 5],
+            7 => [],
+            8 => [1, 2],
+            9 => [3],
             10 => [],
             11 => [4, 5],
             12 => [1, 4, 5],
@@ -50,7 +50,7 @@ class ReviewLikeSeeder extends Seeder
         foreach ($likes as $reviewId => $userIds) {
             $review = Review::find($reviewId);
 
-            $review->likedUsers()->syncWithoutDetaching($userIds);
+            $review->likedByUsers()->syncWithoutDetaching($userIds);
         }
     }
 }
