@@ -4,6 +4,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\RankingController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BookController::class, 'index'])->name('books.index');
+Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
@@ -46,6 +48,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
-Route::get('/ranking', function () {
-    return view('welcome');
-})->name('ranking.index');
