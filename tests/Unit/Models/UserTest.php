@@ -13,6 +13,34 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Userに紐づくBookを取得できる
+     */
+    public function test_user_can_get_related_books(): void
+    {
+        $user = User::factory()->create();
+
+        $book = Book::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->assertTrue($user->books->contains($book));
+    }
+
+    /**
+     * Userに紐づくReviewを取得できる
+     */
+    public function test_user_can_get_related_reviews(): void
+    {
+        $user = User::factory()->create();
+
+        $review = Review::factory()->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->assertTrue($user->reviews->contains($review));
+    }
+
+    /**
      * Userに紐づくお気に入り書籍を取得できる
      */
     public function test_user_can_get_favorite_books(): void
