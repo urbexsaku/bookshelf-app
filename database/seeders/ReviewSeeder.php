@@ -88,7 +88,7 @@ class ReviewSeeder extends Seeder
             [
                 'user_id' => 3,
                 'book_id' => 2,
-                'rating' => 3,
+                'rating' => 5,
                 'comment' => '想像していた内容とは少し違いましたが、参考になる部分がありました。新しい知識を得ることができました。',
             ],
             [

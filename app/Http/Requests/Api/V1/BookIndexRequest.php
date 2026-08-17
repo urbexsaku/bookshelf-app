@@ -35,10 +35,11 @@ class BookIndexRequest extends FormRequest
         return [
             'genre_id.integer' => 'ジャンルIDは整数で指定してください',
             'genre_id.exists' => '指定されたジャンルが存在しません',
-            'page.integer' => 'page は整数で指定してください',
-            'page.min' => 'page は1以上で指定してください',
-            'per_page.integer' => 'per_page は は整数で指定してください',
-            'per_page.max' => 'per_page は 1以上100 以下で指定してください',
+            'page.integer' => 'pageは整数で指定してください',
+            'page.min' => 'pageは1以上で指定してください',
+            'per_page.integer' => 'per_pageは整数で指定してください',
+            'per_page.min' => 'per_pageは1以上100以下で指定してください',
+            'per_page.max' => 'per_pageは1以上100以下で指定してください',
         ];
     }
 }

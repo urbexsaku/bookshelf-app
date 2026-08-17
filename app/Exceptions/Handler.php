@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
         $this->renderable(function (AccessDeniedHttpException $e, $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'error' => 'この操作を実行する権限がありません。',
+                    'error' => 'この操作を実行する権限がありません',
                 ], 403);
             }
         });
