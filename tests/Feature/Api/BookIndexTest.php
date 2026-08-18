@@ -28,7 +28,7 @@ class BookIndexTest extends TestCase
                     'title',
                     'author',
                     'isbn',
-                    'genres'
+                    'genres',
                 ],
             ],
             'meta' => [

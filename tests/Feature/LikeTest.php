@@ -13,7 +13,9 @@ class LikeTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected Book $book;
+
     protected Review $review;
 
     protected function setUp(): void

@@ -12,6 +12,7 @@ class FavoriteTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected Book $book;
 
     protected function setUp(): void

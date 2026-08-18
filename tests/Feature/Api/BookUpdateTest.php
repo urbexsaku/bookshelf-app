@@ -14,8 +14,11 @@ class BookUpdateTest extends TestCase
     use RefreshDatabase;
 
     protected User $user1;
+
     protected User $user2;
+
     protected Book $book;
+
     protected Genre $genre;
 
     protected function setUp(): void

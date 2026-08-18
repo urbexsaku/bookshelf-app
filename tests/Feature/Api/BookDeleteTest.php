@@ -7,7 +7,6 @@ use App\Models\Genre;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -16,7 +15,9 @@ class BookDeleteTest extends TestCase
     use RefreshDatabase;
 
     protected User $user1;
+
     protected User $user2;
+
     protected Book $book;
 
     protected function setUp(): void

@@ -49,7 +49,7 @@ class BookTest extends TestCase
         $book = Book::factory()->create();
 
         $genre = Genre::create([
-            'name' => 'テストジャンル'
+            'name' => 'テストジャンル',
         ]);
 
         $book->genres()->attach($genre->id);

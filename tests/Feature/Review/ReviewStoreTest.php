@@ -12,6 +12,7 @@ class ReviewStoreTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected Book $book;
 
     protected function setUp(): void
@@ -30,11 +31,11 @@ class ReviewStoreTest extends TestCase
         $response = $this->actingAs($this->user)
             ->from(route('books.show', $this->book))
             ->post(route('reviews.store', $this->book), [
-            'user_id' => $this->user->id,
-            'book_id' => $this->book->id,
-            'rating' => 1,
-            'comment' => 'テストレビューコメント',
-        ]);
+                'user_id' => $this->user->id,
+                'book_id' => $this->book->id,
+                'rating' => 1,
+                'comment' => 'テストレビューコメント',
+            ]);
 
         $response->assertRedirect(route('books.show', $this->book));
 

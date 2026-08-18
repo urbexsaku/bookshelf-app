@@ -13,6 +13,7 @@ class GenreDeleteTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected Genre $genre;
 
     protected function setUp(): void
@@ -59,7 +60,7 @@ class GenreDeleteTest extends TestCase
         );
 
         $this->assertDatabaseHas('genres', [
-            'id' => $this->genre->id
+            'id' => $this->genre->id,
         ]);
     }
 

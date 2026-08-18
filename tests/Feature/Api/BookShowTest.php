@@ -47,7 +47,7 @@ class BookShowTest extends TestCase
                         'id',
                         'user_name',
                         'rating',
-                        'comment'
+                        'comment',
                     ],
                 ],
             ],

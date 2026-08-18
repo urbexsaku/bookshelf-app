@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
+use Database\Seeders\BookSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,8 +20,8 @@ class RankingTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(\Database\Seeders\UserSeeder::class);
-        $this->seed(\Database\Seeders\BookSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(BookSeeder::class);
 
         $this->user = User::factory()->create();
     }

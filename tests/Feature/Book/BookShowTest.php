@@ -17,7 +17,7 @@ class BookShowTest extends TestCase
      * 書籍詳細に必要な情報が表示される
      */
     public function test_book_detail_displays_book_information(): void
-    { 
+    {
         $book = Book::factory()->create([
             'title' => 'テスト書籍',
             'author' => 'テスト著者',
@@ -42,7 +42,7 @@ class BookShowTest extends TestCase
             'book_id' => $book->id,
             'rating' => 1,
             'comment' => 'テストレビュー',
-        ]);   
+        ]);
 
         $review->likedByUsers()->attach($likeUsers->pluck('id'));
 

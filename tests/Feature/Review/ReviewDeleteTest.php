@@ -6,7 +6,6 @@ use App\Models\Book;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ReviewDeleteTest extends TestCase
@@ -14,8 +13,11 @@ class ReviewDeleteTest extends TestCase
     use RefreshDatabase;
 
     protected User $user1;
+
     protected User $user2;
+
     protected Book $book;
+
     protected Review $review;
 
     protected function setUp(): void

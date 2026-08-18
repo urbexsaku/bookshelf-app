@@ -13,6 +13,7 @@ class BookStoreTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected Genre $genre;
 
     protected function setUp(): void

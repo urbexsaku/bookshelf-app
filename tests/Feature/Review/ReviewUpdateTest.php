@@ -13,8 +13,11 @@ class ReviewUpdateTest extends TestCase
     use RefreshDatabase;
 
     protected User $user1;
+
     protected User $user2;
+
     protected Book $book;
+
     protected Review $review;
 
     protected function setUp(): void
