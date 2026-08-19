@@ -48,3 +48,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+
+Route::get('/reading-plans', function () {
+return view('welcome');
+})->name('reports.index');
+
+Route::get('/reports', function () {
+return view('welcome');
+})->name('reading-plans.index');
+
+Route::get('/notifications', function () {
+return view('welcome');
+})->name('notifications.index');
+
