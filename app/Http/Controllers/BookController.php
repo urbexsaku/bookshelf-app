@@ -6,19 +6,37 @@ use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Services\GoogleBooksService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use RuntimeException;
 
 class BookController extends Controller
 {
     /**
      * 書籍一覧を表示する
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $books = Book::paginate(10);
+        $query = Book::with('genres');
 
-        return view('books.index', compact('books'));
+        $keyword = $request->keyword;
+        $genre = $request->genre;
+        $sort = $request->sort;
+
+        $query->keywordSearch($keyword)
+            ->genreFilter($genre)
+            ->sortBy($sort);
+
+        $books = $query
+            ->paginate(10)
+            ->withQueryString();
+
+        $genres = Genre::all();
+
+        return view('books.index', compact('books', 'genres'));
     }
 
     /**
@@ -57,7 +75,7 @@ class BookController extends Controller
         $book->genres()->attach($request->genres);
 
         return redirect()->route('books.show', $book)
-            ->with('success', '書籍を登録しました');
+            ->with('success', '書籍を登録しました。');
     }
 
     /**
@@ -83,7 +101,7 @@ class BookController extends Controller
         $book->genres()->sync($request->genres);
 
         return redirect()->route('books.show', $book)
-            ->with('success', '書籍を更新しました');
+            ->with('success', '書籍を更新しました。');
     }
 
     /**
@@ -96,6 +114,22 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('books.index')
-            ->with('success', '書籍を削除しました');
+            ->with('success', '書籍を削除しました。');
+    }
+
+    /**
+     * ISBNから書籍情報を取得する
+     */
+    public function searchByIsbn(string $isbn, GoogleBooksService $googleBooksService): JsonResponse
+    {
+        try {
+            $book = $googleBooksService->searchByIsbn($isbn);
+
+            return response()->json($book);
+        } catch (RuntimeException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 422);
+        }
     }
 }

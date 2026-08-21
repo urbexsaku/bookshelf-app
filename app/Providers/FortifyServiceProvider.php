@@ -8,6 +8,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
@@ -19,6 +20,16 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
+
+        $this->app->singleton(LoginResponse::class, function () {
+            return new class implements LoginResponse
+            {
+                public function toResponse($request)
+                {
+                    return redirect()->intended('/');
+                }
+            };
+        });
     }
 
     /**

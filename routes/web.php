@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::put('/books/{book}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+    Route::get('/books/isbn/{isbn}', [BookController::class, 'searchByIsbn'])->name('books.isbn.search');
 
     Route::post('/books/{book}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
@@ -50,14 +51,13 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
 
 Route::get('/reading-plans', function () {
-return view('welcome');
+    return view('welcome');
 })->name('reports.index');
 
 Route::get('/reports', function () {
-return view('welcome');
+    return view('welcome');
 })->name('reading-plans.index');
 
 Route::get('/notifications', function () {
-return view('welcome');
+    return view('welcome');
 })->name('notifications.index');
-
