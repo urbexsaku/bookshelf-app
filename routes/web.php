@@ -4,7 +4,9 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\ReadingPlanController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
@@ -38,25 +40,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/reviews/{review}/like', [LikeController::class, 'toggle'])->name('reviews.like');
 
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
-    Route::post('/favorites/{book}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+    Route::post('/books/{book}/favorites', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
 
-    Route::get('/genres', [GenreController::class, 'index'])->name('genres.index');
-    Route::get('/genres/create', [GenreController::class, 'create'])->name('genres.create');
-    Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
-    Route::get('/genres/{genre}', [GenreController::class, 'show'])->name('genres.show');
-    Route::get('/genres/{genre}/edit', [GenreController::class, 'edit'])->name('genres.edit');
-    Route::put('/genres/{genre}', [GenreController::class, 'update'])->name('genres.update');
-    Route::delete('/genres/{genre}', [GenreController::class, 'destroy'])->name('genres.destroy');
+    Route::resource('genres', GenreController::class);
 
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+    Route::resource('reading-plans', ReadingPlanController::class)
+        ->except(['show']);
+    Route::post('/reading-plans/{reading_plan}/complete', [ReadingPlanController::class, 'complete'])->name('reading-plans.complete');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/{notification_id}/read', [NotificationController::class, 'read'])->name('notifications.read');
 });
 
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
-
-Route::get('/reading-plans', function () {
-    return view('welcome');
-})->name('reading-plans.index');
-
-Route::get('/notifications', function () {
-    return view('welcome');
-})->name('notifications.index');

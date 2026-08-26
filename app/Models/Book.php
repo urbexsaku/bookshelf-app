@@ -25,6 +25,8 @@ class Book extends Model
 
     protected $casts = [
         'published_date' => 'date',
+        'target_date' => 'date',
+        'completed_at' => 'datetime',
     ];
 
     /**
@@ -57,6 +59,14 @@ class Book extends Model
     public function favoritedUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'favorites');
+    }
+
+    /**
+     * この書籍に紐づく読書計画
+     */
+    public function readingPlans(): HasMany
+    {
+        return $this->hasMany(ReadingPlan::class);
     }
 
     /**
