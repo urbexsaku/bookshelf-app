@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookStoreRequest;
-use App\Http\Requests\BookUpdateRequest;
+use App\Http\Requests\BookRequest;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Services\GoogleBooksService;
@@ -60,7 +59,7 @@ class BookController extends Controller
     /**
      * 書籍を登録する
      */
-    public function store(BookStoreRequest $request): RedirectResponse
+    public function store(BookRequest $request): RedirectResponse
     {
         $book = Book::create([
             'user_id' => auth()->id(),
@@ -93,7 +92,7 @@ class BookController extends Controller
     /**
      * 書籍を編集する
      */
-    public function update(BookUpdateRequest $request, Book $book): RedirectResponse
+    public function update(BookRequest $request, Book $book): RedirectResponse
     {
         $this->authorize('update', $book);
 

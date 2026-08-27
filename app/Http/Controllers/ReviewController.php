@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReviewStoreRequest;
-use App\Http\Requests\ReviewUpdateRequest;
+use App\Http\Requests\ReviewRequest;
 use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Contracts\View\View;
@@ -14,7 +13,7 @@ class ReviewController extends Controller
     /**
      * レビューを投稿する
      */
-    public function store(ReviewStoreRequest $request, Book $book): RedirectResponse
+    public function store(ReviewRequest $request, Book $book): RedirectResponse
     {
         Review::create([
             'user_id' => auth()->id(),
@@ -40,7 +39,7 @@ class ReviewController extends Controller
     /**
      * レビューを編集する
      */
-    public function update(ReviewUpdateRequest $request, Review $review): RedirectResponse
+    public function update(ReviewRequest $request, Review $review): RedirectResponse
     {
         $this->authorize('update', $review);
 

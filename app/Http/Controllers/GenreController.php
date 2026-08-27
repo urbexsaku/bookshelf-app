@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GenreStoreRequest;
-use App\Http\Requests\GenreUpdateRequest;
+use App\Http\Requests\GenreRequest;
 use App\Models\Genre;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -41,7 +40,7 @@ class GenreController extends Controller
     /**
      * ジャンルを登録する
      */
-    public function store(GenreStoreRequest $request): RedirectResponse
+    public function store(GenreRequest $request): RedirectResponse
     {
         Genre::create(['name' => $request->name]);
 
@@ -60,7 +59,7 @@ class GenreController extends Controller
     /**
      * ジャンルを編集する
      */
-    public function update(GenreUpdateRequest $request, Genre $genre): RedirectResponse
+    public function update(GenreRequest $request, Genre $genre): RedirectResponse
     {
         $genre->update($request->validated());
 

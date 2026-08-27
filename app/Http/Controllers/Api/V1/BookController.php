@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\BookIndexRequest;
-use App\Http\Requests\Api\V1\BookStoreRequest;
-use App\Http\Requests\Api\V1\BookUpdateRequest;
+use App\Http\Requests\Api\V1\BookRequest;
 use App\Http\Resources\BookDetailResource;
 use App\Http\Resources\BookIndexResource;
 use App\Models\Book;
@@ -50,7 +49,7 @@ class BookController extends Controller
     /**
      * 書籍を登録する
      */
-    public function store(BookStoreRequest $request): JsonResponse
+    public function store(BookRequest $request): JsonResponse
     {
         $book = $request->user()
             ->books()
@@ -82,7 +81,7 @@ class BookController extends Controller
     /**
      * 書籍情報を更新する
      */
-    public function update(BookUpdateRequest $request, Book $book): BookDetailResource
+    public function update(BookRequest $request, Book $book): BookDetailResource
     {
         $this->authorize('update', $book);
 

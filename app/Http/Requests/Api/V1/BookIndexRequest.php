@@ -33,13 +33,13 @@ class BookIndexRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'genre_id.integer' => 'ジャンルIDは整数で指定してください',
-            'genre_id.exists' => '指定されたジャンルが存在しません',
-            'page.integer' => 'pageは整数で指定してください',
-            'page.min' => 'pageは1以上で指定してください',
-            'per_page.integer' => 'per_pageは整数で指定してください',
-            'per_page.min' => 'per_pageは1以上100以下で指定してください',
-            'per_page.max' => 'per_pageは1以上100以下で指定してください',
+            'genre_id.integer' => 'ジャンルIDは整数で指定してください。',
+            'genre_id.exists' => '指定されたジャンルが存在しません。',
+            'page.integer' => 'pageは整数で指定してください。',
+            'page.min' => 'pageは1以上で指定してください。',
+            'per_page.integer' => 'per_pageは整数で指定してください。',
+            'per_page.min' => 'per_pageは1以上100以下で指定してください。',
+            'per_page.max' => 'per_pageは1以上100以下で指定してください。',
         ];
     }
 }
