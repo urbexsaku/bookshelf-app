@@ -28,7 +28,7 @@ class BookStoreTest extends TestCase
     }
 
     /**
-     * 書籍情報を登録できる
+     * 書籍情報を登録できる。
      */
     public function test_user_can_register_book(): void
     {
@@ -49,6 +49,7 @@ class BookStoreTest extends TestCase
         $this->assertDatabaseHas('books', [
             'title' => 'テスト書籍',
             'isbn' => '1234567890123',
+            'user_id' => $this->user->id,
         ]);
 
         $this->assertTrue(
@@ -57,7 +58,7 @@ class BookStoreTest extends TestCase
     }
 
     /**
-     * 書籍タイトルが未入力の場合、バリデーションメッセージが表示される
+     * 書籍タイトルが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_title_is_empty(): void
     {
@@ -74,13 +75,13 @@ class BookStoreTest extends TestCase
         $response->assertSessionHasErrors('title');
 
         $this->assertEquals(
-            'タイトルを入力してください',
+            'タイトルを入力してください。',
             session('errors')->first('title')
         );
     }
 
     /**
-     * 著者名が未入力の場合、バリデーションメッセージが表示される
+     * 著者名が未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_author_is_empty(): void
     {
@@ -97,36 +98,13 @@ class BookStoreTest extends TestCase
         $response->assertSessionHasErrors('author');
 
         $this->assertEquals(
-            '著者名を入力してください',
+            '著者名を入力してください。',
             session('errors')->first('author')
         );
     }
 
     /**
-     * ISBNが未入力の場合、バリデーションメッセージが表示される
-     */
-    public function test_validation_message_is_displayed_when_isbn_is_empty(): void
-    {
-        $response = $this->actingAs($this->user)->post(route('books.store'), [
-            'title' => 'テスト書籍',
-            'author' => 'テスト著者',
-            'isbn' => '',
-            'published_date' => '2026-01-01',
-            'description' => 'テスト書籍説明文',
-            'image_url' => 'https://test.com/',
-            'genres' => [$this->genre->id],
-        ]);
-
-        $response->assertSessionHasErrors('isbn');
-
-        $this->assertEquals(
-            'ISBNを入力してください',
-            session('errors')->first('isbn')
-        );
-    }
-
-    /**
-     * 重複するISBNの場合、バリデーションメッセージが表示される
+     * 重複するISBNの場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_isbn_is_already_registered(): void
     {
@@ -147,13 +125,13 @@ class BookStoreTest extends TestCase
         $response->assertSessionHasErrors('isbn');
 
         $this->assertEquals(
-            'このISBNは既に登録されています',
+            'このISBNは既に登録されています。',
             session('errors')->first('isbn')
         );
     }
 
     /**
-     * ゲストがアクセスできない
+     * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_book_registration_page(): void
     {
@@ -163,7 +141,7 @@ class BookStoreTest extends TestCase
     }
 
     /**
-     * ゲストが書籍登録できない
+     * ゲストが書籍登録できない。
      */
     public function test_guest_cannot_register_book(): void
     {

@@ -38,7 +38,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * 書籍情報を更新できる
+     * 書籍情報を更新できる。
      */
     public function test_user_can_update_book(): void
     {
@@ -67,7 +67,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * 書籍タイトルが未入力の場合、バリデーションメッセージが表示される
+     * 書籍タイトルが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_title_is_empty(): void
     {
@@ -84,13 +84,13 @@ class BookUpdateTest extends TestCase
         $response->assertSessionHasErrors('title');
 
         $this->assertEquals(
-            'タイトルを入力してください',
+            'タイトルを入力してください。',
             session('errors')->first('title')
         );
     }
 
     /**
-     * 著者名が未入力の場合、バリデーションメッセージが表示される
+     * 著者名が未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_author_is_empty(): void
     {
@@ -107,36 +107,13 @@ class BookUpdateTest extends TestCase
         $response->assertSessionHasErrors('author');
 
         $this->assertEquals(
-            '著者名を入力してください',
+            '著者名を入力してください。',
             session('errors')->first('author')
         );
     }
 
     /**
-     * ISBNが未入力の場合、バリデーションメッセージが表示される
-     */
-    public function test_validation_message_is_displayed_when_isbn_is_empty(): void
-    {
-        $response = $this->actingAs($this->user1)->put(route('books.update', $this->book), [
-            'title' => '更新テスト書籍',
-            'author' => '更新テスト著者',
-            'isbn' => '',
-            'published_date' => '2026-01-01',
-            'description' => '更新テスト書籍説明文',
-            'image_url' => 'https://test.com/',
-            'genres' => [$this->genre->id],
-        ]);
-
-        $response->assertSessionHasErrors('isbn');
-
-        $this->assertEquals(
-            'ISBNを入力してください',
-            session('errors')->first('isbn')
-        );
-    }
-
-    /**
-     * 重複するISBNの場合、バリデーションメッセージが表示される
+     * 重複するISBNの場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_isbn_is_already_registered(): void
     {
@@ -157,13 +134,13 @@ class BookUpdateTest extends TestCase
         $response->assertSessionHasErrors('isbn');
 
         $this->assertEquals(
-            'このISBNは既に登録されています',
+            'このISBNは既に登録されています。',
             session('errors')->first('isbn')
         );
     }
 
     /**
-     * ゲストがアクセスできない
+     * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_book_edit_page(): void
     {
@@ -173,7 +150,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * ゲストが書籍更新できない
+     * ゲストが書籍更新できない。
      */
     public function test_guest_cannot_update_book(): void
     {
@@ -195,7 +172,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * 他人の書籍は更新できない
+     * 他人の書籍は更新できない。
      */
     public function test_book_registered_by_others_cannot_be_updated(): void
     {

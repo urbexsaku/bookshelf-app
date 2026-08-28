@@ -10,7 +10,7 @@ class RegistrationTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * ユーザーを登録できる
+     * ユーザーを登録できる。
      */
     public function test_user_can_register(): void
     {
@@ -30,7 +30,7 @@ class RegistrationTest extends TestCase
     }
 
     /**
-     * 名前が未入力の場合、バリデーションメッセージが表示される
+     * 名前が未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_name_is_empty(): void
     {
@@ -44,13 +44,13 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('name');
 
         $this->assertEquals(
-            'お名前を入力してください',
+            'お名前を入力してください。',
             session('errors')->first('name')
         );
     }
 
     /**
-     * メールアドレスが未入力の場合、バリデーションメッセージが表示される
+     * メールアドレスが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_email_is_empty(): void
     {
@@ -64,13 +64,13 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('email');
 
         $this->assertEquals(
-            'メールアドレスを入力してください',
+            'メールアドレスを入力してください。',
             session('errors')->first('email')
         );
     }
 
     /**
-     * パスワードが8文字未満の場合、バリデーションメッセージが表示される
+     * パスワードが8文字未満の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_password_is_less_than_8_characters(): void
     {
@@ -84,13 +84,13 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('password');
 
         $this->assertEquals(
-            'パスワードは8文字以上で入力してください',
+            'パスワードは8文字以上で入力してください。',
             session('errors')->first('password')
         );
     }
 
     /**
-     * パスワードが一致しない場合、バリデーションメッセージが表示される
+     * パスワードが一致しない場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_password_does_not_match(): void
     {
@@ -104,13 +104,13 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('password');
 
         $this->assertEquals(
-            'パスワードと一致しません',
+            'パスワードと一致しません。',
             session('errors')->first('password')
         );
     }
 
     /**
-     * パスワードが未入力の場合、バリデーションメッセージが表示される
+     * パスワードが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_password_is_empty(): void
     {
@@ -124,7 +124,7 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('password');
 
         $this->assertEquals(
-            'パスワードを入力してください',
+            'パスワードを入力してください。',
             session('errors')->first('password')
         );
     }

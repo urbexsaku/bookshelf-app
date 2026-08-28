@@ -11,7 +11,7 @@ class BookIndexTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 書籍一覧が取得できる
+     * 書籍一覧が取得できる。
      */
     public function test_book_list_can_be_retrieved(): void
     {
@@ -45,7 +45,7 @@ class BookIndexTest extends TestCase
     }
 
     /**
-     * キーワードで指定した書籍一覧が取得できる
+     * キーワードで指定した書籍一覧が取得できる。
      */
     public function test_book_can_be_filtered_by_keyword(): void
     {
@@ -81,7 +81,7 @@ class BookIndexTest extends TestCase
     }
 
     /**
-     * 存在しないジャンルの場合、バリデーションエラーが返される
+     * 存在しないジャンルの場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_genre_id_does_not_exist(): void
     {
@@ -95,12 +95,12 @@ class BookIndexTest extends TestCase
 
         $response->assertJsonPath(
             'errors.genre_id.0',
-            '指定されたジャンルが存在しません'
+            '指定されたジャンルが存在しません。'
         );
     }
 
     /**
-     * genre_id, page, per_pageが整数でない場合、バリデーションエラーが返される
+     * genre_id, page, per_pageが整数でない場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_query_parameters_are_not_integers(): void
     {
@@ -118,22 +118,22 @@ class BookIndexTest extends TestCase
 
         $response->assertJsonPath(
             'errors.genre_id.0',
-            'ジャンルIDは整数で指定してください'
+            'ジャンルIDは整数で指定してください。'
         );
 
         $response->assertJsonPath(
             'errors.page.0',
-            'pageは整数で指定してください'
+            'pageは整数で指定してください。'
         );
 
         $response->assertJsonPath(
             'errors.per_page.0',
-            'per_pageは整数で指定してください'
+            'per_pageは整数で指定してください。'
         );
     }
 
     /**
-     * page・per_pageが0の場合、バリデーションエラーが返される
+     * page・per_pageが0の場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_query_parameters_are_zeros(): void
     {
@@ -150,12 +150,12 @@ class BookIndexTest extends TestCase
 
         $response->assertJsonPath(
             'errors.page.0',
-            'pageは1以上で指定してください'
+            'pageは1以上で指定してください。'
         );
 
         $response->assertJsonPath(
             'errors.per_page.0',
-            'per_pageは1以上100以下で指定してください'
+            'per_pageは1以上100以下で指定してください。'
         );
     }
 
@@ -176,7 +176,7 @@ class BookIndexTest extends TestCase
 
         $response->assertJsonPath(
             'errors.per_page.0',
-            'per_pageは1以上100以下で指定してください'
+            'per_pageは1以上100以下で指定してください。'
         );
     }
 }

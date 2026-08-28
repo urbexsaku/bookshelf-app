@@ -25,8 +25,6 @@ class Book extends Model
 
     protected $casts = [
         'published_date' => 'date',
-        'target_date' => 'date',
-        'completed_at' => 'datetime',
     ];
 
     /**

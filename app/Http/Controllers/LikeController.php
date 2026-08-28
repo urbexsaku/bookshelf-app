@@ -8,7 +8,10 @@ use Illuminate\Http\RedirectResponse;
 class LikeController extends Controller
 {
     /**
-     * レビューのいいねを登録する
+     * レビューのいいねを登録・解除する。
+     *
+     * @param  Review  $review  いいね登録・解除するレビュー
+     * @return RedirectResponse 元の画面へのリダイレクト
      */
     public function toggle(Review $review): RedirectResponse
     {

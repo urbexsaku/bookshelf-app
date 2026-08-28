@@ -27,7 +27,7 @@ class RankingTest extends TestCase
     }
 
     /**
-     * 正しいランキング情報が表示される
+     * 正しいランキング情報が表示される。
      */
     public function test_ranking_is_displayed_in_descending_order(): void
     {
@@ -78,7 +78,7 @@ class RankingTest extends TestCase
     }
 
     /**
-     * ゲストがアクセスできる
+     * ゲストがアクセスできる。
      */
     public function test_guest_can_access_ranking_page(): void
     {

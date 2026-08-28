@@ -27,7 +27,7 @@ class GenreUpdateTest extends TestCase
     }
 
     /**
-     * ジャンルを更新できる
+     * ジャンルを更新できる。
      */
     public function test_user_can_update_genre(): void
     {
@@ -44,7 +44,7 @@ class GenreUpdateTest extends TestCase
     }
 
     /**
-     * ジャンル名が未入力の場合、バリデーションメッセージが表示される
+     * ジャンル名が未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_genre_is_empty(): void
     {
@@ -55,13 +55,13 @@ class GenreUpdateTest extends TestCase
         $response->assertSessionHasErrors('name');
 
         $this->assertEquals(
-            'ジャンル名を入力してください',
+            'ジャンル名を入力してください。',
             session('errors')->first('name')
         );
     }
 
     /**
-     * 重複するジャンル名の場合、バリデーションメッセージが表示される
+     * 重複するジャンル名の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_genre_is_already_registered(): void
     {
@@ -76,13 +76,13 @@ class GenreUpdateTest extends TestCase
         $response->assertSessionHasErrors('name');
 
         $this->assertEquals(
-            'このジャンル名は既に登録されています',
+            'このジャンル名は既に登録されています。',
             session('errors')->first('name')
         );
     }
 
     /**
-     * ゲストがアクセスできない
+     * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_genre_edit_page(): void
     {
@@ -92,7 +92,7 @@ class GenreUpdateTest extends TestCase
     }
 
     /**
-     * ゲストがジャンル登録できない
+     * ゲストがジャンルを更新できない。
      */
     public function test_guest_cannot_update_genre(): void
     {

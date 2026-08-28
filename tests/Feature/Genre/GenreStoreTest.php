@@ -21,7 +21,7 @@ class GenreStoreTest extends TestCase
     }
 
     /**
-     * ジャンルを登録できる
+     * ジャンルを登録できる。
      */
     public function test_user_can_register_genre(): void
     {
@@ -37,7 +37,7 @@ class GenreStoreTest extends TestCase
     }
 
     /**
-     * ジャンル名が未入力の場合、バリデーションメッセージが表示される
+     * ジャンル名が未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_name_is_empty(): void
     {
@@ -48,13 +48,13 @@ class GenreStoreTest extends TestCase
         $response->assertSessionHasErrors('name');
 
         $this->assertEquals(
-            'ジャンル名を入力してください',
+            'ジャンル名を入力してください。',
             session('errors')->first('name')
         );
     }
 
     /**
-     * 重複するジャンル名の場合、バリデーションメッセージが表示される
+     * 重複するジャンル名の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_genre_is_already_registered(): void
     {
@@ -69,13 +69,13 @@ class GenreStoreTest extends TestCase
         $response->assertSessionHasErrors('name');
 
         $this->assertEquals(
-            'このジャンル名は既に登録されています',
+            'このジャンル名は既に登録されています。',
             session('errors')->first('name')
         );
     }
 
     /**
-     * ゲストがアクセスできない
+     * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_genre_registration_page(): void
     {
@@ -85,7 +85,7 @@ class GenreStoreTest extends TestCase
     }
 
     /**
-     * ゲストがジャンル登録できない
+     * ゲストがジャンル登録できない。
      */
     public function test_guest_cannot_register_genre(): void
     {

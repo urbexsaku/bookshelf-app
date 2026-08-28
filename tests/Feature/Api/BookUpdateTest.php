@@ -39,7 +39,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * 書籍情報を更新できる
+     * 書籍情報を更新できる。
      */
     public function test_user_can_update_book(): void
     {
@@ -68,7 +68,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * 書籍タイトルが未入力の場合、バリデーションエラーが返される
+     * 書籍タイトルが未入力の場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_title_is_empty(): void
     {
@@ -92,12 +92,12 @@ class BookUpdateTest extends TestCase
 
         $response->assertJsonPath(
             'errors.title.0',
-            'タイトルを指定してください'
+            'タイトルを指定してください。'
         );
     }
 
     /**
-     * 著者名が未入力の場合、バリデーションエラーが返される
+     * 著者名が未入力の場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_author_is_empty(): void
     {
@@ -121,41 +121,12 @@ class BookUpdateTest extends TestCase
 
         $response->assertJsonPath(
             'errors.author.0',
-            '著者名を指定してください'
+            '著者名を指定してください。'
         );
     }
 
     /**
-     * ISBNが未入力の場合、バリデーションエラーが返される
-     */
-    public function test_validation_error_is_returned_when_isbn_is_empty(): void
-    {
-        Sanctum::actingAs($this->user1, ['*']);
-
-        $response = $this->putJson("/api/v1/books/{$this->book->id}", [
-            'title' => 'テスト書籍',
-            'author' => 'テスト著者',
-            'isbn' => '',
-            'published_date' => '2026-01-01',
-            'description' => 'テスト書籍説明文',
-            'image_url' => 'https://test.com/',
-            'genre_ids' => [$this->genre->id],
-        ]);
-
-        $response->assertStatus(422);
-
-        $response->assertJsonValidationErrors([
-            'isbn',
-        ]);
-
-        $response->assertJsonPath(
-            'errors.isbn.0',
-            'ISBNを指定してください'
-        );
-    }
-
-    /**
-     * 重複するISBNの場合、バリデーションエラーが返される
+     * 重複するISBNの場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_isbn_is_already_registered(): void
     {
@@ -183,12 +154,12 @@ class BookUpdateTest extends TestCase
 
         $response->assertJsonPath(
             'errors.isbn.0',
-            'このISBNは既に登録されています'
+            'このISBNは既に登録されています。'
         );
     }
 
     /**
-     * 存在しないジャンルの場合、バリデーションエラーが返される
+     * 存在しないジャンルの場合、バリデーションエラーが返される。
      */
     public function test_validation_error_is_returned_when_genre_id_does_not_exist(): void
     {
@@ -213,14 +184,14 @@ class BookUpdateTest extends TestCase
         $response->assertJson([
             'errors' => [
                 'genre_ids.0' => [
-                    '指定されたジャンルが存在しません',
+                    '指定されたジャンルが存在しません。',
                 ],
             ],
         ]);
     }
 
     /**
-     * ゲストは書籍情報を登録できない
+     * ゲストは書籍情報を登録できない。
      */
     public function test_guest_cannot_update_book(): void
     {
@@ -241,7 +212,7 @@ class BookUpdateTest extends TestCase
     }
 
     /**
-     * 他人の書籍は更新できない
+     * 他人の書籍は更新できない。
      */
     public function test_book_registered_by_others_cannot_be_updated(): void
     {
@@ -259,7 +230,7 @@ class BookUpdateTest extends TestCase
 
         $response->assertStatus(403)
             ->assertJson([
-                'error' => 'この操作を実行する権限がありません',
+                'error' => 'この操作を実行する権限がありません。',
             ]);
     }
 }

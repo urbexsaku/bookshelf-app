@@ -12,7 +12,9 @@ class RankingController extends Controller
     ) {}
 
     /**
-     * ランキング画面を表示する
+     * ランキング画面を表示する。
+     *
+     * @return View ランキング画面のビュー
      */
     public function index(): View
     {

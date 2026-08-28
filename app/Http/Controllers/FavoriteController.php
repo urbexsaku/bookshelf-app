@@ -9,7 +9,9 @@ use Illuminate\View\View;
 class FavoriteController extends Controller
 {
     /**
-     * お気に入り書籍一覧画面を表示する
+     * お気に入り書籍一覧画面を表示する。
+     *
+     * @return View お気に入り書籍一覧画面のビュー
      */
     public function index(): View
     {
@@ -20,7 +22,10 @@ class FavoriteController extends Controller
     }
 
     /**
-     * 書籍をお気に入り登録する
+     * 書籍をお気に入り登録・解除を切り替える。
+     *
+     * @param  Book  $book  お気に入り登録・解除する書籍
+     * @return RedirectResponse 元の画面へのリダイレクト
      */
     public function toggle(Book $book): RedirectResponse
     {

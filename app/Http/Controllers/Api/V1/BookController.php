@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\BookIndexRequest;
-use App\Http\Requests\Api\V1\BookStoreRequest;
-use App\Http\Requests\Api\V1\BookUpdateRequest;
+use App\Http\Requests\Api\V1\BookRequest;
 use App\Http\Resources\BookDetailResource;
 use App\Http\Resources\BookIndexResource;
 use App\Models\Book;
@@ -16,7 +15,10 @@ use Illuminate\Http\Response;
 class BookController extends Controller
 {
     /**
-     * 書籍一覧を取得する
+     * 書籍一覧を取得する。
+     *
+     * @param  BookIndexRequest  $request  検索・ページネーション条件を含むリクエスト
+     * @return AnonymousResourceCollection 書籍一覧のリソースコレクション
      */
     public function index(BookIndexRequest $request): AnonymousResourceCollection
     {
@@ -48,9 +50,12 @@ class BookController extends Controller
     }
 
     /**
-     * 書籍を登録する
+     * 書籍を登録する。
+     *
+     * @param  BookRequest  $request  登録する書籍情報を含むリクエスト
+     * @return JsonResponse 登録した書籍のJSONレスポンス
      */
-    public function store(BookStoreRequest $request): JsonResponse
+    public function store(BookRequest $request): JsonResponse
     {
         $book = $request->user()
             ->books()
@@ -68,7 +73,10 @@ class BookController extends Controller
     }
 
     /**
-     * 書籍詳細を取得する
+     * 書籍詳細を取得する。
+     *
+     * @param  Book  $book  取得する書籍
+     * @return BookDetailResource 書籍詳細のリソース
      */
     public function show(Book $book): BookDetailResource
     {
@@ -80,9 +88,13 @@ class BookController extends Controller
     }
 
     /**
-     * 書籍情報を更新する
+     * 書籍情報を更新する。
+     *
+     * @param  BookRequest  $request  更新する書籍情報を含むリクエスト
+     * @param  Book  $book  更新する書籍
+     * @return BookDetailResource 更新した書籍詳細のリソース
      */
-    public function update(BookUpdateRequest $request, Book $book): BookDetailResource
+    public function update(BookRequest $request, Book $book): BookDetailResource
     {
         $this->authorize('update', $book);
 
@@ -97,7 +109,10 @@ class BookController extends Controller
     }
 
     /**
-     * 書籍情報を策書する
+     * 書籍情報を削除する。
+     *
+     * @param  Book  $book  削除する書籍
+     * @return Response コンテンツなしのレスポンス
      */
     public function destroy(Book $book): Response
     {

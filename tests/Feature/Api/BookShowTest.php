@@ -13,9 +13,9 @@ class BookShowTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 書籍詳細が取得できる
+     * 書籍詳細が取得できる。
      */
-    public function test_book_detail__can_be_retrieved(): void
+    public function test_book_detail_can_be_retrieved(): void
     {
         $book = Book::factory()->create();
 
@@ -80,7 +80,7 @@ class BookShowTest extends TestCase
     }
 
     /**
-     * 存在しない書籍IDの場合、404エラーが返される
+     * 存在しない書籍IDの場合、404エラーが返される。
      */
     public function test_404_error_is_returned_when_book_id_does_not_exist(): void
     {
@@ -88,7 +88,7 @@ class BookShowTest extends TestCase
 
         $response->assertStatus(404)
             ->assertJson([
-                'error' => '書籍情報が見つかりませんでした',
+                'error' => '書籍情報が見つかりませんでした。',
             ]);
     }
 }

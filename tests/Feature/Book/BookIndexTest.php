@@ -22,7 +22,7 @@ class BookIndexTest extends TestCase
     }
 
     /**
-     * 書籍一覧に書籍タイトル・著者・ジャンルが表示される
+     * 書籍一覧に書籍タイトル・著者・ジャンルが表示される。
      */
     public function test_book_list_displays_book_information(): void
     {
@@ -46,7 +46,7 @@ class BookIndexTest extends TestCase
     }
 
     /**
-     * 11件以上の場合、1ページに10件の書籍が表示される
+     * 11件以上の場合、1ページに10件の書籍が表示される。
      */
     public function test_book_list_displays_10_books_per_page(): void
     {
@@ -62,7 +62,7 @@ class BookIndexTest extends TestCase
     }
 
     /**
-     * 書籍に紐づく複数のジャンルが表示される
+     * 書籍に紐づく複数のジャンルが表示される。
      */
     public function test_book_list_displays_multiple_genres(): void
     {
@@ -86,7 +86,7 @@ class BookIndexTest extends TestCase
     }
 
     /**
-     * ゲストがアクセスできる
+     * ゲストがアクセスできる。
      */
     public function test_guest_can_access_book_list(): void
     {

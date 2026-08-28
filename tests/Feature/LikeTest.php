@@ -30,7 +30,7 @@ class LikeTest extends TestCase
     }
 
     /**
-     * レビューをいいねできる
+     * レビューをいいねできる。
      */
     public function test_user_can_like_review(): void
     {
@@ -47,7 +47,7 @@ class LikeTest extends TestCase
     }
 
     /**
-     * レビューのいいねを解除できる
+     * レビューのいいねを解除できる。
      */
     public function test_user_can_unlike_review(): void
     {
@@ -66,7 +66,7 @@ class LikeTest extends TestCase
     }
 
     /**
-     * ゲストはレビューをいいねできない
+     * ゲストはレビューをいいねできない。
      */
     public function test_guest_cannot_like_review(): void
     {

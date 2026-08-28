@@ -33,7 +33,7 @@ class BookDeleteTest extends TestCase
     }
 
     /**
-     * 書籍を削除できる
+     * 書籍を削除できる。
      */
     public function test_user_can_delete_book(): void
     {
@@ -79,7 +79,7 @@ class BookDeleteTest extends TestCase
     }
 
     /**
-     * ゲストは書籍を削除できない
+     * ゲストは書籍を削除できない。
      */
     public function test_guest_cannot_delete_book(): void
     {
@@ -96,7 +96,7 @@ class BookDeleteTest extends TestCase
     }
 
     /**
-     * 他人の書籍は削除できない
+     * 他人の書籍は削除できない。
      */
     public function test_book_registered_by_others_cannot_be_deleted(): void
     {
@@ -106,7 +106,7 @@ class BookDeleteTest extends TestCase
 
         $response->assertStatus(403)
             ->assertJson([
-                'error' => 'この操作を実行する権限がありません',
+                'error' => 'この操作を実行する権限がありません。',
             ]);
 
         $this->assertDatabaseHas('books', [
