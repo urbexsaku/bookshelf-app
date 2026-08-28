@@ -13,7 +13,10 @@ use Illuminate\View\View;
 class ReadingPlanController extends Controller
 {
     /**
-     * 読書計画一覧画面を表示する
+     * 読書計画一覧画面を表示する。
+     *
+     * @param  Request  $request  計画状態を含むリクエスト
+     * @return View 読書計画一覧画面のビュー
      */
     public function index(Request $request): View
     {
@@ -35,7 +38,9 @@ class ReadingPlanController extends Controller
     }
 
     /**
-     * 読書計画作成画面を表示する
+     * 読書計画作成画面を表示する。
+     *
+     * @return View 読書計画作成画面のビュー
      */
     public function create(): View
     {
@@ -45,7 +50,10 @@ class ReadingPlanController extends Controller
     }
 
     /**
-     * 読書計画を登録する
+     * 読書計画を登録する。
+     *
+     * @param  ReadingPlanRequest  $request  登録する読書計画情報を含むリクエスト
+     * @return RedirectResponse 読書計画一覧画面へのリダイレクト
      */
     public function store(ReadingPlanRequest $request): RedirectResponse
     {
@@ -60,7 +68,10 @@ class ReadingPlanController extends Controller
     }
 
     /**
-     * 読書計画編集画面を表示する
+     * 読書計画編集画面を表示する。
+     *
+     * @param  ReadingPlan  $readingPlan  編集する読書計画
+     * @return View 読書計画編集画面のビュー
      */
     public function edit(ReadingPlan $readingPlan): View
     {
@@ -70,7 +81,11 @@ class ReadingPlanController extends Controller
     }
 
     /**
-     * 読書計画を更新する
+     * 読書計画を更新する。
+     *
+     * @param  ReadingPlanRequest  $request  更新する読書計画情報を含むリクエスト
+     * @param  ReadingPlan  $readingPlan  更新する読書計画
+     * @return RedirectResponse 読書計画一覧画面へのリダイレクト
      */
     public function update(ReadingPlanRequest $request, ReadingPlan $readingPlan): RedirectResponse
     {
@@ -88,7 +103,10 @@ class ReadingPlanController extends Controller
     }
 
     /**
-     * 読書計画を削除する
+     * 読書計画を削除する。
+     *
+     * @param  ReadingPlan  $readingPlan  削除する読書計画
+     * @return RedirectResponse 読書計画一覧画面へのリダイレクト
      */
     public function destroy(ReadingPlan $readingPlan): RedirectResponse
     {
@@ -101,7 +119,10 @@ class ReadingPlanController extends Controller
     }
 
     /**
-     * 読書計画を完了する
+     * 読書計画を完了する。
+     *
+     * @param  ReadingPlan  $readingPlan  完了する読書計画
+     * @return RedirectResponse 読書計画一覧画面へのリダイレクト
      */
     public function complete(ReadingPlan $readingPlan): RedirectResponse
     {

@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ReportController extends Controller
 {
     /**
-     * 読書レポートを表示する
+     * 読書レポートを表示する。
+     *
+     * @return View 読書レポート画面のビュー
      */
     public function index(): View
     {
-        /** @var User @user */
+        /** @var User $user */
         $user = auth()->user();
 
         $stats = [
@@ -49,19 +50,29 @@ class ReportController extends Controller
 
             // ジャンルごとの平均評価点・評価件数を、平均評価が高い順に最大5件表示
             'genre_ratings' => $user->reviews()
-                ->join('books', 'reviews.book_id', '=', 'books.id')
-                ->join('book_genre', 'books.id', '=', 'book_genre.book_id')
-                ->join('genres', 'book_genre.genre_id', '=', 'genres.id')
-                ->select(
-                    'genres.id',
-                    'genres.name',
-                    DB::raw('AVG(reviews.rating) as average_rating'),
-                    DB::raw('COUNT(reviews.id) as count')
-                )
-                ->groupBy('genres.id', 'genres.name')
-                ->orderByDesc('average_rating')
-                ->limit(5)
-                ->get(),
+                ->with('book.genres')
+                ->get()
+                ->flatMap(function ($review) {
+                    return $review->book->genres->map(function ($genre) use ($review) {
+                        return [
+                            'id' => $genre->id,
+                            'name' => $genre->name,
+                            'rating' => $review->rating,
+                        ];
+                    });
+                })
+                ->groupBy('id')
+                ->map(function ($reviews) {
+                    return [
+                        'id' => $reviews->first()['id'],
+                        'name' => $reviews->first()['name'],
+                        'average_rating' => $reviews->avg('rating'),
+                        'count' => $reviews->count(),
+                    ];
+                })
+                ->sortByDesc('average_rating')
+                ->take(5)
+                ->values(),
         ];
 
         return view('reports.index', compact('stats'));
