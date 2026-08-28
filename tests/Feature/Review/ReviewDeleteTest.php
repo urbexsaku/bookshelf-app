@@ -36,7 +36,7 @@ class ReviewDeleteTest extends TestCase
     }
 
     /**
-     * レビューを削除できる
+     * レビューを削除できる。
      */
     public function test_user_can_delete_review(): void
     {
@@ -50,7 +50,7 @@ class ReviewDeleteTest extends TestCase
     }
 
     /**
-     * ゲストはレビューを削除できない
+     * ゲストはレビューを削除できない。
      */
     public function test_guest_cannot_delete_review(): void
     {
@@ -64,7 +64,7 @@ class ReviewDeleteTest extends TestCase
     }
 
     /**
-     * 他人のレビューは削除できない
+     * 他人のレビューは削除できない。
      */
     public function test_review_posted_by_others_cannot_be_deleted(): void
     {

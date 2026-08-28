@@ -14,7 +14,7 @@ class BookShowTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 書籍詳細に必要な情報が表示される
+     * 書籍詳細に必要な情報が表示される。
      */
     public function test_book_detail_displays_book_information(): void
     {
@@ -61,7 +61,7 @@ class BookShowTest extends TestCase
     }
 
     /**
-     * ゲストがアクセスできる
+     * ゲストがアクセスできる。
      */
     public function test_guest_can_access_book_detail(): void
     {

@@ -22,7 +22,7 @@ class GenreIndexTest extends TestCase
     }
 
     /**
-     * ジャンル一覧が表示される
+     * ジャンル一覧が表示される。
      */
     public function test_genre_list_displays_genre_information(): void
     {
@@ -42,7 +42,7 @@ class GenreIndexTest extends TestCase
     }
 
     /**
-     * ゲストがアクセスできない
+     * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_genre_list_page(): void
     {

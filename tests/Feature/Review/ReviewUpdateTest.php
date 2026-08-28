@@ -36,7 +36,7 @@ class ReviewUpdateTest extends TestCase
     }
 
     /**
-     * レビューを更新できる
+     * レビューを更新できる。
      */
     public function test_user_can_update_review(): void
     {
@@ -55,7 +55,7 @@ class ReviewUpdateTest extends TestCase
     }
 
     /**
-     * コメントが未入力の場合、バリデーションメッセージが表示される
+     * コメントが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_comment_is_empty(): void
     {
@@ -67,13 +67,13 @@ class ReviewUpdateTest extends TestCase
         $response->assertSessionHasErrors('comment');
 
         $this->assertEquals(
-            'コメントを入力してください',
+            'コメントを入力してください。',
             session('errors')->first('comment')
         );
     }
 
     /**
-     * 評価が未選択の場合、バリデーションメッセージが表示される
+     * 評価が未選択の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_rating_is_empty(): void
     {
@@ -85,13 +85,13 @@ class ReviewUpdateTest extends TestCase
         $response->assertSessionHasErrors('rating');
 
         $this->assertEquals(
-            '評価を選択してください',
+            '評価を選択してください。',
             session('errors')->first('rating')
         );
     }
 
     /**
-     * ゲストがレビューを更新できない
+     * ゲストがレビューを更新できない。
      */
     public function test_guest_cannot_update_review(): void
     {
@@ -109,7 +109,7 @@ class ReviewUpdateTest extends TestCase
     }
 
     /**
-     * 他人のレビューは更新できない
+     * 他人のレビューは更新できない。
      */
     public function test_review_posted_by_others_cannot_be_updated(): void
     {

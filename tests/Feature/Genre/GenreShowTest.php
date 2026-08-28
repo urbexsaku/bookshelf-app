@@ -22,7 +22,7 @@ class GenreShowTest extends TestCase
     }
 
     /**
-     * ジャンル詳細が表示される
+     * ジャンル詳細が表示される。
      */
     public function test_genre_detail_displays_related_books(): void
     {
@@ -54,7 +54,7 @@ class GenreShowTest extends TestCase
     }
 
     /**
-     * ゲストがアクセスできない
+     * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_genre_detail_page(): void
     {

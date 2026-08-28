@@ -26,7 +26,7 @@ class FavoriteTest extends TestCase
     }
 
     /**
-     * お気に入り登録した書籍だけがお気に入り画面に表示される
+     * お気に入り登録した書籍だけがお気に入り画面に表示される。
      */
     public function test_favorite_page_displays_only_favorited_books(): void
     {
@@ -44,7 +44,7 @@ class FavoriteTest extends TestCase
     }
 
     /**
-     * お気に入りを登録できる
+     * お気に入りを登録できる。
      */
     public function test_user_can_favorite_book(): void
     {
@@ -61,7 +61,7 @@ class FavoriteTest extends TestCase
     }
 
     /**
-     * お気に入り登録を解除できる
+     * お気に入り登録を解除できる。
      */
     public function test_user_can_unfavorite_book(): void
     {
@@ -80,7 +80,7 @@ class FavoriteTest extends TestCase
     }
 
     /**
-     * ゲストはお気に入り一覧画面にアクセスできない
+     * ゲストはお気に入り一覧画面にアクセスできない。
      */
     public function test_guest_cannot_access_favorite_page(): void
     {
@@ -90,7 +90,7 @@ class FavoriteTest extends TestCase
     }
 
     /**
-     * ゲストはお気に入り登録できない
+     * ゲストはお気に入り登録できない。
      */
     public function test_guest_cannot_favorite_book(): void
     {

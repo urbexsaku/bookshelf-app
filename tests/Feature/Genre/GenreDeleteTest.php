@@ -28,7 +28,7 @@ class GenreDeleteTest extends TestCase
     }
 
     /**
-     * ジャンルを削除できる
+     * ジャンルを削除できる。
      */
     public function test_user_can_delete_genre(): void
     {
@@ -42,7 +42,7 @@ class GenreDeleteTest extends TestCase
     }
 
     /**
-     * 書籍に紐づいたジャンルは削除できない
+     * 書籍に紐づいたジャンルは削除できない。
      */
     public function test_user_cannot_delete_genre_related_to_book(): void
     {
@@ -56,7 +56,7 @@ class GenreDeleteTest extends TestCase
 
         $response->assertSessionHas(
             'error',
-            '書籍が紐づいているジャンルは削除できません'
+            '書籍が紐づいているジャンルは削除できません。'
         );
 
         $this->assertDatabaseHas('genres', [
@@ -65,7 +65,7 @@ class GenreDeleteTest extends TestCase
     }
 
     /**
-     * ゲストがジャンルを削除できない
+     * ゲストがジャンルを削除できない。
      */
     public function test_guest_cannot_delete_genre(): void
     {

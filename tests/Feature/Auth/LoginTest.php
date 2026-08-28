@@ -11,7 +11,7 @@ class LoginTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * ユーザーはログインできる
+     * ユーザーはログインできる。
      */
     public function test_user_can_login(): void
     {
@@ -31,7 +31,7 @@ class LoginTest extends TestCase
     }
 
     /**
-     * メールアドレスが未入力の場合、バリデーションメッセージが表示される
+     * メールアドレスが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_email_is_empty(): void
     {
@@ -43,13 +43,13 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors('email');
 
         $this->assertEquals(
-            'メールアドレスを入力してください',
+            'メールアドレスを入力してください。',
             session('errors')->first('email')
         );
     }
 
     /**
-     * パスワードが未入力の場合、バリデーションメッセージが表示される
+     * パスワードが未入力の場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_password_is_empty(): void
     {
@@ -60,13 +60,13 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors('password');
 
         $this->assertEquals(
-            'パスワードを入力してください',
+            'パスワードを入力してください。',
             session('errors')->first('password')
         );
     }
 
     /**
-     * 誤ったメールアドレスを入力した場合、バリデーションメッセージが表示される
+     * 誤ったメールアドレスを入力した場合、バリデーションメッセージが表示される。
      */
     public function test_validation_message_is_displayed_when_credentials_are_invalid(): void
     {
@@ -84,7 +84,7 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors('email');
 
         $this->assertEquals(
-            'ログイン情報が登録されていません',
+            'ログイン情報が登録されていません。',
             session('errors')->first('email')
         );
     }
