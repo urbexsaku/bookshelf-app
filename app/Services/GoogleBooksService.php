@@ -10,7 +10,7 @@ class GoogleBooksService
     /**
      * ISBNからGoogle Books APIで書籍情報を取得する
      */
-    public function searchByIsbn(string $isbn): array
+    public function searchByIsbn(string $isbn): ?array
     {
         $response = Http::get(
             'https://www.googleapis.com/books/v1/volumes',
@@ -27,7 +27,7 @@ class GoogleBooksService
         $data = $response->json();
 
         if (empty($data['items'])) {
-            throw new RuntimeException('該当する書籍が見つかりません。');
+            return null;
         }
 
         $volumeInfo = $data['items'][0]['volumeInfo'] ?? [];

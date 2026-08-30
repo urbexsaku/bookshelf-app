@@ -14,7 +14,7 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::first();
+        $users = User::all();
 
         $books = [
             [
@@ -104,7 +104,7 @@ class BookSeeder extends Seeder
                     'isbn' => $bookData['isbn'],
                 ],
                 [
-                    'user_id' => $user->id,
+                    'user_id' => $users->random()->id,
                     'title' => $bookData['title'],
                     'author' => $bookData['author'],
                     'isbn' => $bookData['isbn'],

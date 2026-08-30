@@ -23,7 +23,7 @@ class ReportController extends Controller
             'summary' => [
                 'total_reviews' => $user->reviews()->count(),
                 'books_read' => $user->reviews()->count(),
-                'average_rating' => $user->reviews()->avg('rating') ?? 0,
+                'average_rating' => round($user->reviews()->avg('rating') ?? 0, 1),
             ],
 
             // ユーザーのレビュー件数を評価点数ごとに集計

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Book;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -83,6 +84,29 @@ class ReviewStoreTest extends TestCase
         $this->assertEquals(
             '評価を選択してください。',
             session('errors')->first('rating')
+        );
+    }
+
+    /**
+     * レビュー投稿済みの書籍である場合、バリデーションメッセージが表示される。
+     */
+    public function test_validation_message_is_displayed_when_review_is_already_registered(): void
+    {
+        Review::factory()->create([
+            'user_id' => $this->user->id,
+            'book_id' => $this->book->id,
+        ]);
+
+        $response = $this->actingAs($this->user)->post(route('reviews.store', $this->book), [
+            'rating' => 1,
+            'comment' => 'テストレビューコメント',
+        ]);
+
+        $response->assertSessionHasErrors('comment');
+
+        $this->assertEquals(
+            'この書籍には既にレビューを投稿しています。',
+            session('errors')->first('comment')
         );
     }
 
