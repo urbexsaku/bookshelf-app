@@ -77,6 +77,10 @@ class ReadingPlanController extends Controller
     {
         $this->authorize('update', $readingPlan);
 
+        if ($readingPlan->status === ReadingPlanStatus::Completed) {
+            abort(403);
+        }
+
         return view('reading-plans.edit', compact('readingPlan'));
     }
 
@@ -90,6 +94,10 @@ class ReadingPlanController extends Controller
     public function update(ReadingPlanRequest $request, ReadingPlan $readingPlan): RedirectResponse
     {
         $this->authorize('update', $readingPlan);
+
+        if ($readingPlan->status === ReadingPlanStatus::Completed) {
+            abort(403);
+        }
 
         $readingPlan->update([
             'target_date' => $request->target_date,

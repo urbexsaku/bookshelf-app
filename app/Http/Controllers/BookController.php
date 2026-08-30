@@ -149,6 +149,12 @@ class BookController extends Controller
         try {
             $book = $googleBooksService->searchByIsbn($isbn);
 
+            if ($book === null) {
+                return response()->json([
+                    'error' => '該当する書籍が見つかりません。',
+                ], 404);
+            }
+
             return response()->json($book);
         } catch (RuntimeException $e) {
             return response()->json([

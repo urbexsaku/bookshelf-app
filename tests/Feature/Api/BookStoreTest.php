@@ -183,7 +183,7 @@ class BookStoreTest extends TestCase
     }
 
     /**
-     * ゲストは書籍情報を登録できない
+     * ゲストは書籍情報を登録できない。
      */
     public function test_guest_cannot_create_book(): void
     {
