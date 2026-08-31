@@ -96,6 +96,24 @@ class PlanStoreTest extends TestCase
     }
 
     /**
+     * 存在しない書籍の場合、バリデーションエラーが返される。
+     */
+    public function test_validation_message_is_displayed_when_book_id_does_not_exist(): void
+    {
+        $response = $this->actingAs($this->user)->post(route('reading-plans.store'), [
+            'book_id' => 9999,
+            'target_date' => today()->subDays(3),
+        ]);
+
+        $response->assertSessionHasErrors('book_id');
+
+        $this->assertEquals(
+            '指定された書籍が存在しません。',
+            session('errors')->first('book_id')
+        );
+    }
+
+    /**
      * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_plan_creation_page(): void

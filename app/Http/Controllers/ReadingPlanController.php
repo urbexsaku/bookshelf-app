@@ -98,7 +98,7 @@ class ReadingPlanController extends Controller
         if ($readingPlan->status === ReadingPlanStatus::Completed) {
             abort(403);
         }
-
+        
         $readingPlan->update([
             'target_date' => $request->target_date,
             'status' => $readingPlan->status === ReadingPlanStatus::Expired
@@ -121,6 +121,11 @@ class ReadingPlanController extends Controller
         $this->authorize('delete', $readingPlan);
 
         $readingPlan->delete();
+
+        // 読書計画に紐づく通知を削除する
+        auth()->user()->notifications()
+            ->where('data->reading_plan_id', $readingPlan->id)
+            ->delete();
 
         return redirect()->route('reading-plans.index')
             ->with('success', '読書計画を削除しました。');

@@ -36,6 +36,7 @@ class BookRequest extends FormRequest
             ],
             'published_date' => ['nullable', 'date'],
             'genres' => ['required', 'array', 'min:1'],
+            'genres.*' => ['integer', 'exists:genres,id'],
             'description' => ['nullable', 'max:1000'],
             'image_url' => ['nullable', 'url', 'max:255'],
         ];
@@ -54,6 +55,8 @@ class BookRequest extends FormRequest
             'isbn.unique' => 'このISBNは既に登録されています。',
             'published_date.date' => '出版日は正しい日付で入力してください。',
             'genres.required' => 'ジャンルは1つ以上選択してください。',
+            'genres.*.integer' => 'ジャンルIDは整数で指定してください。',
+            'genres.*.exists' => '指定されたジャンルが存在しません。',
             'description.max' => '説明は1000文字以下で入力してください。',
             'image_url.url' => '画像URLはURL形式で入力してください。',
             'image_url.max' => '画像URLは255文字以下で入力してください。',

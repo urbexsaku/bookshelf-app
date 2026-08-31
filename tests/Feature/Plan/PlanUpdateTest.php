@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Plan;
 
+use App\Models\Book;
 use App\Models\ReadingPlan;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -95,15 +96,48 @@ class PlanUpdateTest extends TestCase
      */
     public function test_validation_message_is_displayed_when_target_date_is_in_past(): void
     {
-        $response = $this->actingAs($this->user1)->put(route('reading-plans.update', $this->plan), [
+        $book = Book::factory()->create();
+
+        ReadingPlan::factory()->create([
+            'book_id' => $book->id,
+            'user_id' => $this->user1->id,
+            'target_date' => today()->addDays(3),
+        ]);
+
+        $expiredPlan = ReadingPlan::factory()->create([
+            'book_id' => $book->id,
+            'user_id' => $this->user1->id,
             'target_date' => today()->subDays(3),
+            'status' => 'expired',
+        ]);
+
+        $response = $this->actingAs($this->user1)->put(route('reading-plans.update', $expiredPlan), [
+            'target_date' => today()->addDays(3),
         ]);
 
         $response->assertSessionHasErrors('target_date');
 
         $this->assertEquals(
-            '期日は本日以降の日付で入力してください。',
+            'この書籍には現在実行中の読書計画が登録されています。',
             session('errors')->first('target_date')
+        );
+    }
+
+    /**
+     * 別の実行中の読書計画がある期限切れ計画を更新する場合、バリデーションエラーが返される。
+     */
+    public function test_validation_message_is_displayed_when_updating_expired_plan_with_existing_in_progress_plan(): void
+    {
+        $response = $this->actingAs($this->user1)->put(route('reading-plans.update', $this->plan), [
+            'book_id' => 9999,
+            'target_date' => today()->subDays(3),
+        ]);
+
+        $response->assertSessionHasErrors('book_id');
+
+        $this->assertEquals(
+            '指定された書籍が存在しません。',
+            session('errors')->first('book_id')
         );
     }
 
