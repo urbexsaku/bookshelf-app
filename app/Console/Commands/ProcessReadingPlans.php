@@ -22,7 +22,7 @@ class ProcessReadingPlans extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '読書計画の期限切れ処理とリマインダー通知を行う';
 
     /**
      * 読書計画の期限切れ処理を行い、対象ユーザーにリマインダー通知を送信する。

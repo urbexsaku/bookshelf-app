@@ -131,6 +131,29 @@ class BookStoreTest extends TestCase
     }
 
     /**
+     * 存在しないジャンルの場合、バリデーションエラーが返される。
+     */
+    public function test_validation_error_is_returned_when_genre_id_does_not_exist(): void
+    {
+        $response = $this->actingAs($this->user)->post(route('books.store'), [
+            'title' => 'テスト書籍',
+            'author' => 'テスト著者',
+            'isbn' => '1234567890123',
+            'published_date' => '2026-01-01',
+            'description' => 'テスト書籍説明文',
+            'image_url' => 'https://test.com/',
+            'genres' => [9999],
+        ]);
+
+        $response->assertSessionHasErrors('genres.0');
+
+        $this->assertEquals(
+            '指定されたジャンルが存在しません。',
+            session('errors')->first('genres.0')
+        );
+    }
+
+    /**
      * ゲストがアクセスできない。
      */
     public function test_guest_cannot_access_book_registration_page(): void

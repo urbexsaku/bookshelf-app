@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RuntimeException;
 
 class BookController extends Controller
@@ -22,7 +23,8 @@ class BookController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Book::with('genres');
+        $query = Book::with('genres')
+            ->withAvg('reviews', 'rating');
 
         $keyword = $request->keyword;
         $genre = $request->genre;
@@ -49,6 +51,12 @@ class BookController extends Controller
      */
     public function show(Book $book): View
     {
+        $book->load([
+            'genres',
+            'reviews.user',
+            'reviews.likedByUsers',
+        ]);
+
         return view('books.show', compact('book'));
     }
 
@@ -72,17 +80,21 @@ class BookController extends Controller
      */
     public function store(BookRequest $request): RedirectResponse
     {
-        $book = Book::create([
-            'user_id' => auth()->id(),
-            'title' => $request->title,
-            'author' => $request->author,
-            'isbn' => $request->isbn,
-            'published_date' => $request->published_date,
-            'description' => $request->description,
-            'image_url' => $request->image_url,
-        ]);
+        $book = DB::transaction(function () use ($request) {
+            $book = Book::create([
+                'user_id' => auth()->id(),
+                'title' => $request->title,
+                'author' => $request->author,
+                'isbn' => $request->isbn,
+                'published_date' => $request->published_date,
+                'description' => $request->description,
+                'image_url' => $request->image_url,
+            ]);
 
-        $book->genres()->attach($request->genres);
+            $book->genres()->attach($request->genres);
+
+            return $book;
+        });
 
         return redirect()->route('books.show', $book)
             ->with('success', '書籍を登録しました。');
@@ -114,8 +126,10 @@ class BookController extends Controller
     {
         $this->authorize('update', $book);
 
-        $book->update($request->validated());
-        $book->genres()->sync($request->genres);
+        DB::transaction(function () use ($book, $request) {
+            $book->update($request->validated());
+            $book->genres()->sync($request->genres);
+        });
 
         return redirect()->route('books.show', $book)
             ->with('success', '書籍を更新しました。');
