@@ -29,7 +29,7 @@ class ReadingPlanRequest extends FormRequest
             'book_id' => [
                 Rule::requiredIf($this->isMethod('POST')),
                 'integer',
-                'exists:books,id'
+                'exists:books,id',
             ],
             'target_date' => ['required', 'date', 'after_or_equal:today'],
         ];
@@ -39,6 +39,7 @@ class ReadingPlanRequest extends FormRequest
     {
         return [
             'book_id.required' => '書籍を選択してください。',
+            'book_id.integer' => '書籍IDは整数で指定してください。',
             'book_id.exists' => '指定された書籍が存在しません。',
             'target_date.required' => '期日を入力してください。',
             'target_date.date' => '期日は正しい日付で入力してください。',

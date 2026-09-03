@@ -21,9 +21,12 @@
 - 読書計画の作成・進捗管理
 - 読書計画に応じたリマインダー通知
 - 日次バッチによる読書計画の自動処理
-- Laravel Sanctumによる書籍API
+- 外部アプリケーション向けAPI（Sanctumによるトークン認証）
 
 ## 環境構築
+本プロジェクトはLaravel Sail（Docker）を使用して構築しています。ローカル環境にPHPやComposerをインストールすることなく、Docker上で開発環境を構築できます。
+
+環境構築の際は、あらかじめDocker Desktopを起動してください。
 
 1. リポジトリをクローン
 ```bash
@@ -36,7 +39,7 @@ cd bookshelf-app
 cp .env.example .env
 ```
 
-3. Composer 依存のインストール（Docker 経由）
+3. Composer 依存パッケージのインストール（Docker 経由）
 ```bash
 docker run --rm \
     -u "$(id -u):$(id -g)" \
@@ -65,11 +68,21 @@ sail artisan key:generate
 sail artisan migrate --seed
 ```
 
+既存のデータを削除してデータベースを初期状態から再構築する場合は、以下を実行してください。
+```bash
+sail artisan migrate:fresh --seed
+```
+> migrate:fresh は既存のテーブルとデータをすべて削除します。
+
 7. フロントエンドアセットのビルド
 ```bash
 sail npm install
 sail npm run build
 ```
+> 開発中にフロントエンドの変更をリアルタイムで反映する場合は、別ターミナルで以下を起動してください。
+> ```bash
+> sail npm run dev
+> ```
 
 8. Google Books APIの設定
 
@@ -88,7 +101,7 @@ GOOGLE_BOOKS_API_KEY=取得したAPIキーをここに入力
 - PHP 8.5
 - Laravel 10.10
 - MySQL 8.4
-- Laravel Sail (Docker)
+- Laravel Sail（Docker）
 - Laravel Fortify
 - Laravel Sanctum
 - Vite
@@ -117,17 +130,23 @@ GOOGLE_BOOKS_API_KEY=取得したAPIキーをここに入力
 
 ## APIエンドポイント
 
-| メソッド | エンドポイント | 概要 | 認証 |
+| メソッド | エンドポイント | 概要 | 認証・認可 |
 |----------|----------------|------|------|
 | GET | `/api/v1/books` | 書籍一覧を取得 | 不要 |
 | GET | `/api/v1/books/{book}` | 書籍詳細を取得 | 不要 |
 | POST | `/api/v1/books` | 書籍を登録 | Sanctum |
-| PUT | `/api/v1/books/{book}` | 書籍を更新 | Sanctum |
-| DELETE | `/api/v1/books/{book}` | 書籍を削除 | Sanctum |
+| PUT | `/api/v1/books/{book}` | 書籍を更新 | Sanctum・Policy（登録者本人） |
+| DELETE | `/api/v1/books/{book}` | 書籍を削除 | Sanctum・Policy（登録者本人） |
 
 ## テスト
 
 PHPUnitによるFeature Test・Unit Testを実装しています。
+
+### 実行方法
+```bash
+sail artisan test
+```
+### 主なテスト内容
 
 - 認証・認可
 - 書籍管理

@@ -33,6 +33,7 @@ class BookIndexRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'keyword.string' => 'キーワードは文字列で指定してください。',
             'genre_id.integer' => 'ジャンルIDは整数で指定してください。',
             'genre_id.exists' => '指定されたジャンルが存在しません。',
             'page.integer' => 'pageは整数で指定してください。',
