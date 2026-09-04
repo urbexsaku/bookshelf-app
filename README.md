@@ -99,7 +99,7 @@ GOOGLE_BOOKS_API_KEY=取得したAPIキーをここに入力
 ## 使用技術 
 
 - PHP 8.5
-- Laravel 10.10
+- Laravel 10.x
 - MySQL 8.4
 - Laravel Sail（Docker）
 - Laravel Fortify
@@ -160,6 +160,25 @@ sail artisan test
 - バリデーション
 
 **テストカバレッジ：90.3%**
+
+## 通知機能の動作確認
+
+読書計画の期限切れ処理やリマインド通知は、`ProcessReadingPlans`を実行することで処理されます。
+
+### 手動で実行する場合
+以下のコマンドを実行します。
+```bash
+sail artisan app:process-reading-plans
+```
+
+### 定刻（20時）に自動実行する場合
+`app/Console/Kernel.php` の `Schedule` で、毎日20時にコマンドが実行されるよう設定しています。
+
+ローカル環境でScheduleを動作させる場合は、別ターミナルで以下を起動してください。
+```bash
+sail artisan schedule:work
+```
+`schedule:work` を起動した状態で、設定した時刻になると自動的に通知処理が実行されます。
 
 ## 設計書
 
